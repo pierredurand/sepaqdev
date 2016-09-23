@@ -13,7 +13,10 @@ AS SELECT /*+ LEADING (DDJ UMM UPO DDS FDF) */ FDF.ref_rsun_phys_oper,
        FDF.uppnuimin,
        FDF.uppnbrjrs,
        FDF.uppnuimax,
-       GREATEST (NVL (UPO.upoindfer, 'N'), NVL (FDF.uppindfer, 'N')),
+       DECODE (
+          DDS.declg,
+          0, GREATEST (NVL (UPO.upoindfer, 'N'), NVL (UMM.uppindfer, 'N')),
+             NULL),
        CASE WHEN GREATEST (NVL (UPO.upoindfer, 'N'),NVL (UMM.uppindfer, 'N')) <> 'O'
        THEN 
        DECODE (
